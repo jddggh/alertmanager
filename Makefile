@@ -11,8 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GO    := GO15VENDOREXPERIMENT=1 go
-PROMU := $(GOPATH)/bin/promu
+GO    ?= GO15VENDOREXPERIMENT=1 go
+GOPATH := $(firstword $(subst :, ,$(shell $(GO) env GOPATH)))
+
+PROMU ?= $(GOPATH)/bin/promu
 pkgs   = $(shell $(GO) list ./... | grep -v -E '/vendor/|/ui')
 
 PREFIX                  ?= $(shell pwd)
